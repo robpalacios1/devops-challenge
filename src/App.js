@@ -3,7 +3,6 @@ import "./App.css";
 
 function App() {
   return (
-    value = 123
     <div className="App">
       <header className="App-header">
         <div>CIDR Calculator</div>
