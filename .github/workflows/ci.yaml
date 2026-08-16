@@ -3,7 +3,8 @@ name: CI Pipeline
 on: 
   pull_request:
     branches:
-      -main 
+      - devel
+      - stage
 
 jobs:
   build:
@@ -11,15 +12,15 @@ jobs:
 
   steps: 
     - name: Check out code
-    uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Node.js
-    uses: actions/setup-node@v2
-    with:
-      node-version: '14'
+      uses: actions/setup-node@v4
+      with:
+        node-version: '15'
 
     - name: Install dependencies
-      run: npm install
+      run: npm install --legacy-peer-deeps
 
     - name: Run linter
       run: npm run lint
