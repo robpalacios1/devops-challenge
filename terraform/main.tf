@@ -61,7 +61,15 @@ resource "aws_s3_bucket_acl" "logs" {
     grant {
       grantee {
         type = "CanonicalUser"
-        id   = data.aws_canonical_user_id.current.id
+        id   = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0"
+      }
+      permission = "FULL_CONTROL"
+    }
+
+    grant {
+      grantee {
+        type = "CanonicalUser"
+        id = data.aws_canonical_user_id.current.id
       }
       permission = "FULL_CONTROL"
     }
@@ -164,7 +172,7 @@ data "aws_iam_policy_document" "site" {
   statement {
     sid     = "AllowCloudFrontServicePrincipalReadOnly"
     effect  = "Allow"
-    actions = ["s3LGetObject"]
+    actions = ["s3:GetObject"]
 
     resources = ["${aws_s3_bucket.site.arn}/*"]
 

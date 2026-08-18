@@ -3,20 +3,20 @@ terraform {
 
   required_providers {
     aws = {
-        source = "hashicorp/aws"
-        version = "~>5.0"
+      source  = "hashicorp/aws"
+      version = "~>5.0"
     }
   }
 }
 
 provider "aws" {
-    region = var.aws_region
+  region = var.aws_region
 
-    default_tags {
-        tags = {
-            Project = var.app_name
-            Environment = var.environment
-            ManagedBy = "terraform"
-        }
+  default_tags {
+    tags = {
+      Project     = var.app_name
+      Environment = var.environment
+      ManagedBy   = "terraform"
     }
+  }
 }
