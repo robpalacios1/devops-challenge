@@ -109,3 +109,8 @@ terraform destroy -var-file="environments/stage.tfvars"
 ```
 
 (The S3 buckets have `force_destroy = true` on `aws_s3_bucket.site`, so Terraform empties them automatically before deleting.)
+
+## Author
+
+**Roberto Palacios** — [LinkedIn](https://www.linkedin.com/in/robpalacios1)
+**Portfolio** - [Porfolio](https://robpalacios1.com)
