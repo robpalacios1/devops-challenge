@@ -46,11 +46,11 @@ jobs:
 
       - name: Select Workspace
         working-directory: ./terraform
-        run: terraform workspace select ${{github_ref_name}} || terraform workspace new ${{ github_ref_name }}
+        run: terraform workspace select ${{github.ref_name}} || terraform workspace new ${{ github.ref_name }}
 
       - name: terraform apply
         working-directory: ./terraform
-        run: terraform apply -auto-approve -var-file="environments/${{ github_ref_name }}.tfvars"
+        run: terraform apply -auto-approve -var-file="environments/${{ github.ref_name }}.tfvars"
 
       - name: Sync build to S3
         working-directory: ./terraform
