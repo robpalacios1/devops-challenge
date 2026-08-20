@@ -23,7 +23,7 @@ jobs:
           node-version: '15'
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deeps
+        run: npm install --legacy-peer-deps
 
       - name: Build project
         run: npm run build
@@ -55,14 +55,14 @@ jobs:
       - name: Sync build to S3
         working-directory: ./terraform
         run: |
-          BUCKET=${terraform output -raw site_bucket_name}
+          BUCKET=$(terraform output -raw site_bucket_name)
           aws s3 sync ../build "s3://BUCKET" --delete
 
       - name: Invalidate Cloudfront cache
         working-directory: ./terraform
         run: |
-          DIST_ID=${terraform ouput -raw cloudfront_distribution_id}
-          aws cloudfront create-invalidation --distribution-i "$DIST_ID" --paths "/*"
+          DIST_ID=$(terraform output -raw cloudfront_distribution_id)
+          aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"
 
       - name: Print Live URL
         working-directory: ./terraform
