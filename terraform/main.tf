@@ -10,7 +10,8 @@ data "aws_canonical_user_id" "current" {}
 
 # Private S3 bucket tat store  the built react application
 resource "aws_s3_bucket" "site" {
-  bucket = "${local.name_prefix}-site"
+  bucket        = "${local.name_prefix}-site"
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_public_access_block" "site" {
@@ -69,7 +70,7 @@ resource "aws_s3_bucket_acl" "logs" {
     grant {
       grantee {
         type = "CanonicalUser"
-        id = data.aws_canonical_user_id.current.id
+        id   = data.aws_canonical_user_id.current.id
       }
       permission = "FULL_CONTROL"
     }
