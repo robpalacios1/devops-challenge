@@ -10,7 +10,8 @@ data "aws_canonical_user_id" "current" {}
 
 # Private S3 bucket tat store  the built react application
 resource "aws_s3_bucket" "site" {
-  bucket = "${local.name_prefix}-site"
+  bucket        = "${local.name_prefix}-site"
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_public_access_block" "site" {
@@ -56,6 +57,14 @@ resource "aws_s3_bucket_acl" "logs" {
   access_control_policy {
     owner {
       id = data.aws_canonical_user_id.current.id
+    }
+
+    grant {
+      grantee {
+        type = "CanonicalUser"
+        id   = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0"
+      }
+      permission = "FULL_CONTROL"
     }
 
     grant {
@@ -164,7 +173,7 @@ data "aws_iam_policy_document" "site" {
   statement {
     sid     = "AllowCloudFrontServicePrincipalReadOnly"
     effect  = "Allow"
-    actions = ["s3LGetObject"]
+    actions = ["s3:GetObject"]
 
     resources = ["${aws_s3_bucket.site.arn}/*"]
 
