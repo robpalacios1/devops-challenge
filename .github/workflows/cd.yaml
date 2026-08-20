@@ -1,9 +1,10 @@
 name: CD Pipeline
 
-on: 
-  branches:
-    - devel
-    - stage
+on:
+  push: 
+    branches:
+      - devel
+      - stage
 
 permissions:
     contents: read
