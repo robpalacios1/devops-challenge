@@ -114,6 +114,8 @@ resource "aws_cloudfront_distribution" "site" {
   comment             = "${var.app_name} - ${var.environment}"
   price_class         = "PriceClass_100"
 
+  depends_on = [ aws_s3_bucket_acl.logs ]
+
   origin {
     domain_name              = aws_s3_bucket.site.bucket_regional_domain_name
     origin_id                = local.name_prefix
