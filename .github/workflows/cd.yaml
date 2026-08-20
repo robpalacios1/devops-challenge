@@ -56,7 +56,7 @@ jobs:
         working-directory: ./terraform
         run: |
           BUCKET=$(terraform output -raw site_bucket_name)
-          aws s3 sync ../build "s3://BUCKET" --delete
+          aws s3 sync ../build "s3://$BUCKET" --delete
 
       - name: Invalidate Cloudfront cache
         working-directory: ./terraform
