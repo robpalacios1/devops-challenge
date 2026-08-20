@@ -1,0 +1,20 @@
+name: Branch Guard
+
+on:
+    pull_request:
+        type: [opened, synchronize, reopened]
+        branches:
+            - stage
+
+jobs:
+    enforce-source-branch:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Only Allow devel
+              run: |
+                echo "Base ${{ github.base_ref }} Head: ${{ github.base_ref }}"
+                if [ "${{github.head_ref}}" != "devel" ]; then
+                    echo "Only devel can be merged into stage"
+                    exit 1
+                fi
+            
